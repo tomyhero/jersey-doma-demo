@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "sample.Main"
+
+// http://doma.readthedocs.io/ja/stable/build/
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
+compileJava {
+  sourceCompatibility = targetCompatibility = '1.8' 
+}
+
+repositories {
+  jcenter()
+  mavenCentral()
+  maven {url 'http://maven.seasar.org/maven2'} // for DOMA
+}
+
+dependencies {
+
+  compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.22.2'
+  compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.22.2' 
+//   compile 'com.fasterxml.jackson.core:jackson-core:2.9.0'
+
+  runtime "mysql:mysql-connector-java:6.0.6"
+  compile "org.seasar.doma:doma:2.1.0"
+  compile 'org.seasar.doma:doma:1.38.0'
+
+  testCompile 'junit:junit:4.+'
+
+}
+
+// run { standardInput = System.in }
